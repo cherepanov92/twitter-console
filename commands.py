@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from twitter_api import NewPost as TwitterNewPost
+from twitter_api import NewPost, UserPosts
 
 
-class NewPost:
+class CommandNewPost:
 
     def perform(self):
         while True:
@@ -15,15 +15,17 @@ class NewPost:
                return('post was published')
         
 
-class UserPosts:
-
-    def search_message(self, username):
-        user_db = {'test': ['message 1','message 2','message 3','message 4','message 5','message 6']}
-        return user_db[username]
+class CommandUserPosts:
     
     def perform(self):
-        for message in self.search_message('test'):
-            print(message)
+        while True:
+            try:
+                username = str(input('Enter username: '))
+                user_posts = UserPosts(username)
+            except KeyboardInterrupt:
+                return ('Cancel')
+            else:
+                return user_posts
 
 
 class History:

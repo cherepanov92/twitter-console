@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from commands import NewPost, UserPosts, History
+from commands import CommandNewPost, CommandUserPosts, History
 
 def get_routes():
 
     return{
-        'New post':NewPost,
-        'User posts':UserPosts,
+        'New post':CommandNewPost,
+        'User posts':CommandUserPosts,
         'History':History
     }
 
