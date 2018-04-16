@@ -9,12 +9,14 @@ def get_routes():
         'History':History
     }
 
-
 def perform_command(command):
     routes = get_routes()
 
     command_class = routes[command]
-    print(command_class.test_message)
+    command_inst = command_class()
+    
+    command_inst.perform()
+
 
 def parse_user_input():
     input_function = input
