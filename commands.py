@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
+from twitter_api import NewPost as TwitterNewPost
+
 
 class NewPost:
 
     def perform(self):
-        print('new post')
-
+        while True:
+            try:
+                text = str(input('Enter post text: '))
+                TwitterNewPost(text)
+            except KeyboardInterrupt:
+                return('Cancel')
+            else:
+               return('post was published')
+        
 
 class UserPosts:
 

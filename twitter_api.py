@@ -7,3 +7,8 @@ class Twitter:
                       consumer_secret=config['consumer_secret'],
                       access_token_key=config['access_token_key'],
                       access_token_secret=config['access_token_secret'])
+
+class NewPost(Twitter):
+    @classmethod
+    def __init__(self, text):
+        self.api.PostUpdate(text)

@@ -15,13 +15,13 @@ def perform_command(command):
     command_class = routes[command]
     command_inst = command_class()
     
-    command_inst.perform()
+    print(command_inst.perform())
 
 
 def parse_user_input():
     input_function = input
-    message = 'Input your command: {commands} \n'\
-        .format(commands=' | '.join(['New post', 'User posts', 'History']))
+    message = '{lb}Input your command: {commands} {lb}'\
+        .format(commands=' | '.join(['New post', 'User posts', 'History']), lb='\n')
 
     return input_function(message)
 
