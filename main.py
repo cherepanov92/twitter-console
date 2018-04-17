@@ -15,7 +15,7 @@ def perform_command(command):
     command_class = routes[command]
     command_inst = command_class()
     
-    print(command_inst.perform())
+    command_inst.perform()
 
 
 def parse_user_input():

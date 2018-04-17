@@ -1,21 +1,38 @@
 # -*- coding: utf-8 -*-
 from twitter_api import NewPost, UserPosts
+from db_agent import DataBase
 
+def run_command(method):
+    def command_pagination(self, text):
+        while True:
+            try:
+                user_input = str(input(text))
+            except KeyboardInterrupt:
+                print('Cancel')
+                break
+            else:
+                print('Success')
+                return method(self, user_input)
+    return command_pagination
 
 class CommandNewPost:
 
+    def label(self):
+        return 'New post'
+
     def perform(self):
-        while True:
-            try:
-                text = str(input('Enter post text: '))
-                TwitterNewPost(text)
-            except KeyboardInterrupt:
-                return('Cancel')
-            else:
-               return('post was published')
+        self.create_post('Enter post text: ')
+
+    @run_command
+    def create_post(self, text):
+        NewPost(text)
+        db_record = DataBase()
+        db_record.record_info(self.label())
         
 
 class CommandUserPosts:
+    def label(self):
+        return 'User posts'
     
     def perform(self):
         while True:
@@ -30,28 +47,15 @@ class CommandUserPosts:
                 break
 
     def posts_paginator(self, posts_array):
-        '''
-        paginator_page = 1
-        col_messages_in_page = 20
-        start = int(paginator_page * col_messages_in_page)
-        finish = int(start + col_messages_in_page)
-        '''
         for post in posts_array:
             print(f'============ {post["id"]} ============')
             print('{date}\n{text}'.format(date=post['date'], text=post['text']))
 
-class History:
-    def read_db(self):
-        db = {'1': 'NewPost',
-              '2': 'UserPosts',
-              '3': 'UserPosts',
-              '4': 'NewPost',
-              '5': 'NewPost',
-              '6': 'UserPosts',
-              '7': 'NewPost'}
-        
-        return db
 
-    def perform(self):
-        for read in self.read_db():
-            print(self.read_db()[read])
+class History:
+    def label(self):
+        return 'User posts'
+
+    # def perform(self):
+    #     for read in self.read_db():
+    #         print(self.read_db()[read])
