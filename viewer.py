@@ -1,10 +1,27 @@
 # -*- coding: utf-8 -*-
+from commands import CommandHistory, CommandUserPosts, CommandNewPost
 
 class MainView:
     function = input
     commands = ['New post', 'User posts', 'History']
     message = '{br}Input your command: {commands} {br}' \
                 .format(commands=' | '.join(commands), br='\n')
+
+    def get_routes(self):
+
+        return {
+            'New post': CommandNewPost,
+            'User posts': UserPostsView,
+            'History': HistoryView
+        }
+
+    def perform_command(self, command):
+        routes = self.get_routes()
+
+        command_class = routes[command]
+        command_inst = command_class()
+
+        command_inst.perform()
 
     def select_choice(self):
         while True:
@@ -18,7 +35,7 @@ class MainView:
                 print('exit')
                 break
             else:
-                return choice
+                self.perform_command(choice)
 
 class UserPostsView:
     function = input
@@ -26,8 +43,11 @@ class UserPostsView:
     message = '{br}Input your command: {commands} {br}' \
                 .format(commands=' | '.join(commands), br='\n')
 
-    def perform(self, data_list):
-        self.print_posts(data_list)
+    def perform(self):
+        posts = CommandUserPosts()
+        posts_array = posts.perform()
+
+        self.print_posts(posts_array)
         self.select_choice()
 
     def print_posts(self, data_list):
@@ -56,7 +76,9 @@ class HistoryView:
     message = '{br}Input your command: {commands} {br}' \
                 .format(commands=' | '.join(commands), br='\n')
 
-    def perform(self, data_list):
+    def perform(self):
+        data = CommandHistory()
+        data_list = data.perform()
         self.print_records(data_list)
         self.select_choice()
 

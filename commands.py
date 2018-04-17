@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from twitter_api import NewPost, UserPosts
 from db_agent import DataBase
-from viewer import UserPostsView, HistoryView
+# from viewer import *
 
 def command_runner(method):
     def command_pagination(self, text):
@@ -18,7 +18,7 @@ def command_runner(method):
                 return method(self, user_input)
     return command_pagination
 
-class CommandMainNewPost:
+class CommandNewPost:
 
     def label(self):
         return 'New post'
@@ -31,35 +31,30 @@ class CommandMainNewPost:
         NewPost(text)
 
 
-class CommandMainUserPosts:
+class CommandUserPosts:
+    posts_list = []
+
     def label(self):
         return 'User posts'
-    
+
     def perform(self):
         self.get_user_posts('Enter username: ')
+        return self.posts_list
 
     @command_runner
     def get_user_posts(self, username):
         account = UserPosts(username)
         posts = account.get_posts()
-        self.posts_paginator(posts)
-
-    def posts_paginator(self, posts_array):
-        view = UserPostsView()
-        view.perform(posts_array)
+        self.posts_list = posts
 
 
-class CommandMainHistory:
+class CommandHistory:
     def label(self):
         return 'User posts'
 
     def perform(self):
         data = DataBase()
-        self.viewer(data.get_history())
-
-    def viewer(self, history_list):
-        view = HistoryView()
-        view.perform(history_list)
+        return(data.get_history())
 
 if __name__=='__main__':
     one = CommandUserPosts()
