@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from commands import CommandNewPost, CommandUserPosts, CommandHistory
+from commands import CommandMainNewPost, CommandMainUserPosts, CommandMainHistory
 from viewer import MainView
 
 def get_routes():
 
     return{
-        'New post':CommandNewPost,
-        'User posts':CommandUserPosts,
-        'History':CommandHistory
+        'New post':CommandMainNewPost,
+        'User posts':CommandMainUserPosts,
+        'History':CommandMainHistory
     }
 
 def perform_command(command):

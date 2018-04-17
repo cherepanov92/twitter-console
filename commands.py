@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from twitter_api import NewPost, UserPosts
 from db_agent import DataBase
+from viewer import UserPostsView
 
 def command_runner(method):
     def command_pagination(self, text):
@@ -17,7 +18,7 @@ def command_runner(method):
                 return method(self, user_input)
     return command_pagination
 
-class CommandNewPost:
+class CommandMainNewPost:
 
     def label(self):
         return 'New post'
@@ -30,7 +31,7 @@ class CommandNewPost:
         NewPost(text)
 
 
-class CommandUserPosts:
+class CommandMainUserPosts:
     def label(self):
         return 'User posts'
     
@@ -44,16 +45,19 @@ class CommandUserPosts:
         self.posts_paginator(posts)
 
     def posts_paginator(self, posts_array):
-        print(posts_array)
+        view = UserPostsView()
+        view.perform(posts_array)
 
 
-class CommandHistory:
+class CommandMainHistory:
     def label(self):
         return 'User posts'
 
     def perform(self):
         # for read in self.read_db():
         print('History')
+
+
 if __name__=='__main__':
     one = CommandUserPosts()
     one.perform()
