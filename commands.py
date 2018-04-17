@@ -21,12 +21,24 @@ class CommandUserPosts:
         while True:
             try:
                 username = str(input('Enter username: '))
-                user_posts = UserPosts(username)
+                twitter_acc = UserPosts(username)
+                all_messages = twitter_acc.get_posts()
             except KeyboardInterrupt:
                 return ('Cancel')
             else:
-                return user_posts
+                self.posts_paginator(all_messages)
+                break
 
+    def posts_paginator(self, posts_array):
+        '''
+        paginator_page = 1
+        col_messages_in_page = 20
+        start = int(paginator_page * col_messages_in_page)
+        finish = int(start + col_messages_in_page)
+        '''
+        for post in posts_array:
+            print(f'============ {post["id"]} ============')
+            print('{date}\n{text}'.format(date=post['date'], text=post['text']))
 
 class History:
     def read_db(self):
