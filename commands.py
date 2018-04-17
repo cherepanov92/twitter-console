@@ -44,18 +44,16 @@ class CommandUserPosts:
         self.posts_paginator(posts)
 
     def posts_paginator(self, posts_array):
-        for post in posts_array:
-            print(f'============ {post["id"]} ============')
-            print('{date}\n{text}'.format(date=post['date'], text=post['text']))
+        print(posts_array)
 
 
-class History:
+class CommandHistory:
     def label(self):
         return 'User posts'
 
-    # def perform(self):
-    #     for read in self.read_db():
-    #         print(self.read_db()[read])
+    def perform(self):
+        # for read in self.read_db():
+        print('History')
 if __name__=='__main__':
     one = CommandUserPosts()
     one.perform()
