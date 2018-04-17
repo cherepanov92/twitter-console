@@ -15,8 +15,6 @@ class DataBase:
             print('*** create db ***')
             self.create_table()
 
-
-
     def create_table(self):
         self.cursor.execute("""CREATE TABLE request (
                                 id INTEGER PRIMARY KEY,
@@ -27,6 +25,11 @@ class DataBase:
         now = datetime.now()
         self.cursor.execute("INSERT INTO request VALUES (NULL , '{command}','{time}')".format(command=command, time=now.strftime("%d-%m-%Y %H:%M")))
         self.conn.commit()
+
+    def get_history(self):
+        sql = "SELECT * FROM request;"
+        response = self.cursor.execute(sql)
+        return (response.fetchall())
 
     def cleaner(self):
         sql = "DELETE FROM request"
