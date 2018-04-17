@@ -2,6 +2,7 @@
 import sqlite3
 from datetime import datetime
 
+
 class DataBase:
     conn = sqlite3.connect("twitter.sqlite")
     cursor = conn.cursor()
@@ -15,7 +16,7 @@ class DataBase:
 
     def record_info(self, command):
         now = datetime.now()
-        self.cursor.execute("INSERT INTO request VALUES (NULL , '{}','{}')".format(command, now.strftime("%d-%m-%Y %H:%M")))
+        self.cursor.execute("INSERT INTO request VALUES (NULL , '{command}','{time}')".format(command=command, time=now.strftime("%d-%m-%Y %H:%M")))
         self.conn.commit()
         self.conn.close()
 
