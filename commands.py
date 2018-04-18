@@ -32,20 +32,24 @@ class CommandNewPost:
 
 
 class CommandUserPosts:
-    posts_list = []
 
     def label(self):
         return 'User posts'
 
-    def perform(self):
-        self.get_user_posts('Enter username: ')
-        return self.posts_list
+    def perform(self, start_id = None):
+        if not start_id:
+            self.get_user_posts('Enter username: ')
+
+        return self.get_posts(start_id)
+
+    def get_posts(self, id):
+        posts = self.account.get_posts(start_id = id)
+        return posts
 
     @command_runner
     def get_user_posts(self, username):
-        account = UserPosts(username)
-        posts = account.get_posts()
-        self.posts_list = posts
+        self.account = UserPosts(username)
+
 
 
 class CommandHistory:

@@ -38,22 +38,34 @@ class MainView:
                 self.perform_command(choice)
 
 class UserPostsView:
+
+    last_id = None
+
     function = input
-    commands = ['Preview', 'Home', 'Next']
+    commands = ['Home', 'Get more']
     message = '{br}Input your command: {commands} {br}' \
                 .format(commands=' | '.join(commands), br='\n')
 
-    def perform(self):
-        posts = CommandUserPosts()
-        posts_array = posts.perform()
+    def __init__(self):
+        self.user = CommandUserPosts()
 
-        self.print_posts(posts_array)
+    def perform(self):
+        posts_stack = self.get_stack_posts()
+        self.print_posts(posts_stack)
         self.select_choice()
+
+    def get_stack_posts(self):
+        if self.last_id:
+            return self.user.perform(self.last_id)
+        else:
+            return self.user.perform()
 
     def print_posts(self, data_list):
         for post in data_list:
             print('{decor} {post_id} {decor}'.format(decor='=============================', post_id=post['id']))
             print('{}\n{}'.format(post['date'], post['text']))
+
+        self.last_id = data_list[-1]['message_id']
 
     def select_choice(self):
         while True:
@@ -67,7 +79,10 @@ class UserPostsView:
                 print('exit')
                 break
             else:
-                return choice
+                if choice == 'Get more':
+                    self.perform()
+                    break
+
 
 class HistoryView:
     function = input

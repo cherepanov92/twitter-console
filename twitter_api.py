@@ -19,9 +19,9 @@ class UserPosts(Twitter):
         self.username = username
         self.user_message_col = self.api.GetUser(screen_name=self.username).statuses_count
 
-    def get_posts(self, start_count=1, start_message_id=None):
+    def get_posts(self, start_count=1, start_id=None):
         count = 1
-        messages = self.api.GetUserTimeline(screen_name=self.username, count=200, max_id=start_message_id)
+        messages = self.api.GetUserTimeline(screen_name=self.username, count=50, max_id=start_id)
 
         for message in messages:
             self.message_list.append(dict(id=count, date=message.created_at, text=message.text, message_id=message.id))
