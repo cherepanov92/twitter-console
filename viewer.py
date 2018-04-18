@@ -80,7 +80,11 @@ class HistoryView:
         data = CommandHistory()
         data_list = data.perform()
         self.print_records(data_list)
-        self.select_choice()
+
+        command = self.select_choice()
+        if command == 'Cleaner':
+            data.cleaner()
+
 
     def print_records(self, records):
         for record in records:

@@ -49,12 +49,16 @@ class CommandUserPosts:
 
 
 class CommandHistory:
+    data = DataBase()
+
     def label(self):
-        return 'User posts'
+        return 'History'
 
     def perform(self):
-        data = DataBase()
-        return(data.get_history())
+        return(self.data.get_history())
+
+    def cleaner(self):
+        self.data.cleaner()
 
 if __name__=='__main__':
     one = CommandUserPosts()
