@@ -7,3 +7,12 @@ twitter-клиент на Python.
 
 Все обращения к твиттер апи сохранены в базе данных.
 Есть возможность просматривать историю запросов и очищать её.
+
+<details>
+<summary>Установка</summary>
+
+1. Установить зависимости (pip install -r requirements.txt)
+2. Прописать настройки для twitter apt (twitter_config.py)
+3. Запуск (python main.py)
+
+</details>

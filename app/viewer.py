@@ -76,7 +76,7 @@ class UserPostsView:
             except Exception as e:
                 print(e)
             except KeyboardInterrupt:
-                print('exit')
+                print('Cancel')
                 break
             else:
                 if choice == 'Get more':
@@ -115,7 +115,7 @@ class HistoryView:
             except Exception as e:
                 print(e)
             except KeyboardInterrupt:
-                print('exit')
+                print('Cancel')
                 break
             else:
                 return choice
