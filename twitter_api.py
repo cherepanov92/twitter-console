@@ -13,18 +13,18 @@ class NewPost(Twitter):
         self.api.PostUpdate(text)
 
 class UserPosts(Twitter):
+    post_count = 1
     message_list = []
 
     def __init__(self, username):
         self.username = username
         self.user_message_col = self.api.GetUser(screen_name=self.username).statuses_count
 
-    def get_posts(self, start_count=1, start_id=None):
-        count = 1
+    def get_posts(self, start_id=None):
         messages = self.api.GetUserTimeline(screen_name=self.username, count=50, max_id=start_id)
 
         for message in messages:
-            self.message_list.append(dict(id=count, date=message.created_at, text=message.text, message_id=message.id))
-            count += 1
+            self.message_list.append(dict(id=self.post_count, date=message.created_at, text=message.text, message_id=message.id))
+            self.post_count += 1
 
         return self.message_list
