@@ -81,12 +81,12 @@ class UserPostsView:
             else:
                 if choice == 'Get more':
                     self.perform()
-                    break
+
+                break
 
 
 class HistoryView:
     function = input
-    # commands = ['Preview', 'Home', 'Cleaner', 'Next']
     commands = ['Home', 'Cleaner']
     message = '{br}Input your command: {commands} {br}' \
                 .format(commands=' | '.join(commands), br='\n')
@@ -118,7 +118,11 @@ class HistoryView:
                 print('Cancel')
                 break
             else:
-                return choice
+                if choice == 'Home':
+                    break
+                else:
+                    return choice
+
 
 if __name__=='__main__':
     one = UserPostsView()
